@@ -25,12 +25,12 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Fintech API tests
-      run: npx playwright test --project=fintech-api --workers=1test
+      run: npx playwright test --project=fintech --workers=1test
 
     - name: Run Travel UI tests
       continue-on-error: true
-      run: npx playwright test --project=traveil-ui --workers=1test
-      
+      run: npx playwright test --project=travel-ui --workers=1test
+
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
