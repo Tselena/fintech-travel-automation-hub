@@ -1,0 +1,24 @@
+{
+  "name": "fintech-and-travel-booking-automation-hub",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:api": "npx playwright test --project=fintech --workers=1",
+    "test:ui": "npx playwright test tests/ui/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/json-server": "^0.14.8",
+    "@types/node": "^26.6.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.15"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}
