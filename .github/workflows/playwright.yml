@@ -21,20 +21,34 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Cache Playwright Browsers
+      id: playwright-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-     
+
     - name: Install Playwright Browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps
 
+    - name: Install Playwright System Dependencies
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      run: npx playwright install-deps
+
     - name: Run Fintech API tests
-      run: npx playwright test --project=fintech --workers=1test
+      run: npx playwright test --project=fintech --workers=1
 
     - name: Run Travel UI tests
       continue-on-error: true
-      run: npx playwright test tests/ui/ --workers=1test
+      run: npx playwright test tests/ui/ --workers=1
 
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: playwright-report-${{github.run_id}}
         path: playwright-report/
         retention-days: 14
