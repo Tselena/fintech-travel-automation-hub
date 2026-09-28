@@ -46,7 +46,7 @@ export class MainPage {
   async fillDestination(city: string) {
     await this.destinationInput.waitFor({ state: "visible", timeout: 7000 });
 
-    await this.destinationInput.page().waitForLoadState("networkidle");
+    // await this.destinationInput.page().waitForLoadState("networkidle");
 
     await this.destinationInput.click();
     await this.destinationInput.focus();
